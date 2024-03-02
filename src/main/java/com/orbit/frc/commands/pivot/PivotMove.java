@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.math.controller.ArmFeedforward;
 
-import com.orbit.frc.subsystems.Pivot;
+import com.orbit.frc.subsystems.pivot.Pivot;
 import com.orbit.frc.util.OrbitTimer;
 import com.orbit.frc.util.OrbitPID;
 
@@ -50,7 +50,7 @@ public class PivotMove extends Command {
     public void initialize() {
         config.pid.reset();
         
-        this.startState = new TrapezoidProfile.State(config.pivot.getDegrees(), 0.0);
+        this.startState = new TrapezoidProfile.State(config.pivot.getPositionDegrees(), 0.0);
         this.endState = new TrapezoidProfile.State(this.target, 0.0);
 
         this.motionProfile = new TrapezoidProfile(config.motionProfileConstraints);
@@ -67,7 +67,7 @@ public class PivotMove extends Command {
             );
 	
         target = profileTarget.position;
-        input = config.pivot.getDegrees();
+        input = config.pivot.getPositionDegrees();
         pidOutput = config.pid.calculate(target, input);
         config.pivot.setNormalizedVoltage(pidOutput);
     }
