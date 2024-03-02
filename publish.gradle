@@ -42,8 +42,8 @@ ext.addTaskToCopyAllOutputs = { task ->
     copyAllOutputs.from task.archiveFile
 }
 
-def artifactGroupId = 'com.vendor.frc'
-def baseArtifactId = 'Vendor'
+def artifactGroupId = 'com.orbit.frc'
+def baseArtifactId = 'OrbitSubsystemsLib'
 def zipBaseName = "_GROUP_com_orbit_frc_ID_${baseArtifactId}-cpp_CLS"
 def javaBaseName = "_GROUP_com_orbit_frc_ID_${baseArtifactId}-java_CLS"
 
