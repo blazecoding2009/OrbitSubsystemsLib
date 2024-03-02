@@ -2,6 +2,7 @@ plugins {
   id 'cpp'
   id 'java'
   id 'google-test'
+  id 'edu.wpi.first.GradleRIO' version '2024.2.1'
   id 'edu.wpi.first.wpilib.repositories.WPILibRepositoriesPlugin' version '2020.2'
   id 'edu.wpi.first.NativeUtils' version '2024.6.1'
   id 'edu.wpi.first.GradleJni' version '1.1.0'
@@ -35,13 +36,16 @@ dependencies {
     implementation "com.fasterxml.jackson.core:jackson-core:2.12.4"
     implementation "com.fasterxml.jackson.core:jackson-databind:2.12.4"
     implementation 'edu.wpi.first.thirdparty.frc2024.opencv:opencv-java:4.8.0-2'
+
+    implementation 'edu.wpi.first.wpilibNewCommands:wpilibNewCommands-java:2024.+'
+    implementation 'com.revrobotics.frc:REVLib-java:2024.+'
 }
 
 // Set up exports properly
 nativeUtils {
   exportsConfigs {
     // Main library is just default empty. This will export everything
-    Vendor {
+    OrbitSubsystemsLib {
     }
   }
   privateExportsConfigs {
@@ -54,7 +58,7 @@ nativeUtils {
 
 model {
   components {
-    Vendor(NativeLibrarySpec) {
+    OrbitSubsystemsLib(NativeLibrarySpec) {
       sources {
         cpp {
           source {
@@ -66,58 +70,18 @@ model {
           }
         }
       }
-      binaries.all {
-        lib library: 'VendorDriver', linkage: 'shared'
-      }
       nativeUtils.useRequiredLibrary(it, 'wpilib_shared')
     }
-
-    VendorDriver(JniNativeLibrarySpec) {
-      enableCheckTask true
-      javaCompileTasks << compileJava
-      jniCrossCompileOptions << JniCrossCompileOptions(nativeUtils.wpi.platforms.roborio)
-      // Leave these for future proofing
-      jniCrossCompileOptions << JniCrossCompileOptions(nativeUtils.wpi.platforms.linuxarm32)
-      jniCrossCompileOptions << JniCrossCompileOptions(nativeUtils.wpi.platforms.linuxarm64)
-      sources {
-        cpp {
-          source {
-            srcDirs 'src/main/driver/cpp'
-            include '**/*.cpp'
-          }
-          exportedHeaders {
-            srcDirs 'src/main/driver/include'
-          }
-        }
-      }
-
-      nativeUtils.useRequiredLibrary(it, "driver_shared")
-    }
   }
+
   testSuites {
-    VendorTest {
+    OrbitSubsystemsLibTest {
         sources.cpp {
             source {
                 srcDir 'src/test/native/cpp'
                 include '**/*.cpp'
             }
         }
-
-        binaries.all {
-          lib library: 'VendorDriver', linkage: 'shared'
-        }
-
-        nativeUtils.useRequiredLibrary(it, "wpilib_executable_shared", "googletest_static")
-    }
-
-    VendorDriverTest {
-        sources.cpp {
-            source {
-                srcDir 'src/test/driver/cpp'
-                include '**/*.cpp'
-            }
-        }
-
         nativeUtils.useRequiredLibrary(it, "wpilib_executable_shared", "googletest_static")
     }
   }
