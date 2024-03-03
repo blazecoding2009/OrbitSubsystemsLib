@@ -1,25 +1,12 @@
 package com.orbit.frc.subsystems.pivot;
 
-import edu.wpi.first.wpilibj.AnalogEncoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-import com.orbit.frc.util.OrbitPID;
 
 public class Pivot extends SubsystemBase {
     private final PivotConfig config;
 
-    // We keep this separate from configuration because it'd be annoying to make separate configurations for each setpoint
-    private final double targetAngle;
-    
-    // Motion outputs & calculation stuff
-    private double angularVelocity, lastAngle;
-    private long lastTime;
-
-    private boolean moving;
-
-    public Pivot(PivotConfig config, double target) {
+    public Pivot(PivotConfig config) {
         this.config = config;
-        this.targetAngle = target;
 
         config.motors[0].getEncoder().setPositionConversionFactor(config.gearRatio);
         config.motors[0].getEncoder().setVelocityConversionFactor(config.gearRatio);
