@@ -1,16 +1,6 @@
 package com.orbit.frc.subsystems.pivot;
 
-import com.revrobotics.CANSparkBase;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkFlex;
-import com.revrobotics.REVLibError;
-import com.revrobotics.CANSparkBase.IdleMode;
-import com.revrobotics.CANSparkLowLevel.MotorType;
-
-import edu.wpi.first.math.controller.ArmFeedforward;
-import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.AnalogEncoder;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.orbit.frc.util.OrbitPID;
@@ -44,7 +34,7 @@ public class Pivot extends SubsystemBase {
 
     /* Set voltage as fraction of 12.0 V */
     public void setNormalizedVoltage(double v) {
-        config.motors[0].setVoltage(v * 12.0);
+        setVoltage(v * 12.0);
     }
 
     public double getPositionRotations() {

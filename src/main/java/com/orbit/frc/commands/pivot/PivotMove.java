@@ -1,27 +1,12 @@
-package com.orbit.frc.commands;
+package com.orbit.frc.commands.pivot;
 
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.math.controller.ArmFeedforward;
 
-import com.orbit.frc.subsystems.pivot.Pivot;
 import com.orbit.frc.util.OrbitTimer;
-import com.orbit.frc.util.OrbitPID;
 
 public class PivotMove extends Command {
-    
-    public class PivotMoveConfig {
-        public Pivot pivot;
-
-        public double maxVel, maxAccel;
-        public TrapezoidProfile.Constraints motionProfileConstraints; 
-
-        // PIDF controllers
-        public OrbitPID pid;
-        public ArmFeedforward feedForward;  
-    }
-
     private PivotMoveConfig config;
 
     // this changes often between commands for the same pivot, let it be separate
@@ -38,8 +23,8 @@ public class PivotMove extends Command {
     // internal calculation vars
     private double target, input, pidOutput;
     
-    public PivotMove(PivotMoveConfig _config, double angle) {
-        this.config = _config;
+    public PivotMove(PivotMoveConfig config, double angle) {
+        this.config = config;
         this.target = angle;
 
         this.timer = new OrbitTimer();
