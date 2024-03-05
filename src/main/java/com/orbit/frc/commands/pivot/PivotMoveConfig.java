@@ -1,4 +1,4 @@
-package com.orbit.frc.commands.telescope;
+package com.orbit.frc.commands.pivot;
 
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.controller.ArmFeedforward;
