@@ -6,9 +6,11 @@ import com.orbit.frc.subsystems.SubsystemConfig;
 
 public class TelescopeConfig extends SubsystemConfig{
 
+    public double encoderOffset;
+
     /* Limit switch config
      */
     public int limitSwitchPort;
     public boolean limitSwitchInverted;
-    public DigitalInput limitSwitch
+    public DigitalInput limitSwitch;
 }

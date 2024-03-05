@@ -11,6 +11,10 @@ plugins {
 
 repositories {
   mavenCentral()
+  maven {
+    name "JitPack"
+    url "https://jitpack.io/"
+  }
 }
 if (project.hasProperty('releaseMode')) {
   wpilibRepositories.addAllReleaseRepositories(project)

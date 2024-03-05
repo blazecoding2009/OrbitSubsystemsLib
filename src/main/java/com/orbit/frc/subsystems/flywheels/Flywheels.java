@@ -15,6 +15,10 @@ public class Flywheels extends SubsystemBase {
         }
     }
 
+    public int getMotorCount() {
+        return config.motors.length;
+    }
+
     /* Set voltage directly */
     public void setVoltage(int i, double v) {
         config.motors[i].setVoltage(v);

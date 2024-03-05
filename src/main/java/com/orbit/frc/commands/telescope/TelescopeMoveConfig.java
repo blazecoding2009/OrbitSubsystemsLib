@@ -3,7 +3,7 @@ package com.orbit.frc.commands.telescope;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 
 import com.orbit.frc.util.OrbitPID;
-import com.orbit.frc.subsystems.pivot.Telescope;
+import com.orbit.frc.subsystems.telescope.Telescope;
 
 public class TelescopeMoveConfig {
     public Telescope pivot;

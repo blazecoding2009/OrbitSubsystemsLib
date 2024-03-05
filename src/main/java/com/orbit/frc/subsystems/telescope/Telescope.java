@@ -10,6 +10,8 @@ public class Telescope extends SubsystemBase {
 
         config.motors[0].getEncoder().setPositionConversionFactor(config.gearRatio);
         config.motors[0].getEncoder().setVelocityConversionFactor(config.gearRatio);
+        
+        this.resetEncoder();
     }
 
     /* Set voltage directly */
@@ -38,8 +40,13 @@ public class Telescope extends SubsystemBase {
         return getVelocityRotations() * 360.0;
     }
 
-    public double getLimitSwitch() {
+    public boolean getLimitSwitch() {
         // XOR to easily invert the result
         return config.limitSwitch.get() ^ config.limitSwitchInverted;
+    }
+
+    /* Set the encoder offset to be wherever the pivot is right now */
+    public void resetEncoder() {
+        config.motors[0].getEncoder().setPosition(0);
     }
 }
