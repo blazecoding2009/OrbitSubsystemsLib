@@ -1,18 +1,16 @@
 package com.orbit.frc.commands.telescope;
 
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.math.controller.ArmFeedforward;
 
 import com.orbit.frc.util.OrbitPID;
-import com.orbit.frc.subsystems.pivot.Pivot;
+import com.orbit.frc.subsystems.pivot.Telescope;
 
-public class PivotMoveConfig {
-    public Pivot pivot;
+public class TelescopeMoveConfig {
+    public Telescope pivot;
 
     public double maxVel, maxAccel;
     public TrapezoidProfile.Constraints motionProfileConstraints; 
 
     // PIDF controllers
     public OrbitPID pid;
-    public ArmFeedforward feedForward;  
 }
