@@ -18,15 +18,17 @@ public class SpinFlywheels extends Command {
 
     private SpinFlywheelsConfig config;
 
-    // this changes often between commands for the same flywheels, let it be separate
-    private double[] targets;
-    
-    public SpinFlywheels(SpinFlywheelsConfig config, double... speeds) {
+    // these two might change often between commands for the same flywheels, let it be separate
+    private double[] speeds;
+    private double tolerance; // tolerance array is probably not something we need right
+
+    public SpinFlywheels(SpinFlywheelsConfig config, double tolerance, double... speeds) {
         if(!(config.flywheels.getMotorCount() == config.pid.length && config.pid.length == speeds.length)) { 
             throw new IllegalArgumentException("The number of flywheels, PID controllers and speeds must be identical");
         }
         this.config = config;
-        this.targets = speeds;
+        this.tolerance = tolerance;
+        this.speeds = speeds;
         addRequirements(config.flywheels);
     }
 
@@ -39,8 +41,16 @@ public class SpinFlywheels extends Command {
     public void execute() {
        for(int i = 0; i < config.flywheels.getMotorCount(); i++) {
            double input = config.flywheels.getVelocityRotations(i);
-           double output = config.pid[i].calculate(targets[i], input);
+           double output = config.pid[i].calculate(speeds[i], input);
            config.flywheels.setNormalizedVoltage(i, output);
        }
+    }
+
+    public boolean ready() {
+        for(int i = 0; i < config.flywheels.getMotorCount(); i++) {
+            if(Math.abs(config.flywheels.getVelocityRotations(i) - speeds[i]) > tolerance)
+                return false;
+        }
+        return true;
     }
 }
