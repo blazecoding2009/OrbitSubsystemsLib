@@ -46,6 +46,7 @@ public class SpinFlywheels extends Command {
        }
     }
 
+    // Check if the flywheels are ready for firing
     public boolean ready() {
         for(int i = 0; i < config.flywheels.getMotorCount(); i++) {
             if(Math.abs(config.flywheels.getVelocityRotations(i) - speeds[i]) > tolerance)
