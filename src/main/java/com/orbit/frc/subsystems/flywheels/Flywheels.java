@@ -29,11 +29,7 @@ public class Flywheels extends SubsystemBase {
         setVoltage(i, v * 12.0);
     }
     
-    public double getVelocityRotations(int i) {
+    public double getVelocityRPM(int i) {
         return config.motors[i].getEncoder().getVelocity();
-    }
-
-    public double getVelocityDegrees(int i) {
-        return getVelocityRotations(i) * 360.0;
     }
 }

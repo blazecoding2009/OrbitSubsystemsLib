@@ -40,7 +40,7 @@ public class SpinFlywheels extends Command {
     @Override
     public void execute() {
        for(int i = 0; i < config.flywheels.getMotorCount(); i++) {
-           double input = config.flywheels.getVelocityRotations(i);
+           double input = config.flywheels.getVelocityRPM(i);
            double output = config.pid[i].calculate(speeds[i], input);
            config.flywheels.setNormalizedVoltage(i, output);
        }
@@ -49,7 +49,7 @@ public class SpinFlywheels extends Command {
     // Check if the flywheels are ready for firing
     public boolean ready() {
         for(int i = 0; i < config.flywheels.getMotorCount(); i++) {
-            if(Math.abs(config.flywheels.getVelocityRotations(i) - speeds[i]) > tolerance)
+            if(Math.abs(config.flywheels.getVelocityRPM(i) - speeds[i]) > tolerance)
                 return false;
         }
         return true;
