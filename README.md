@@ -15,3 +15,5 @@ Planned features:
 - Asymmetric trapezoidal motion profiles
 - S-curve motion profiles
 - Inverse kinematics for chained pivots and telescopes
+- Simulation support
+  - Physics/kinematics perhaps?
