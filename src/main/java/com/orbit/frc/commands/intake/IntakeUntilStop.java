@@ -12,20 +12,21 @@ public class IntakeUntilStop extends Command {
     public IntakeUntilStop(IntakeUntilStopConfig config, double speed) {
         this.config = config;
         this.speed = speed;
+        addRequirements(config.intake);
     }
 
     @Override
     public void execute() {
-        this.intake.setNormalizedVoltage(speed);
+        this.config.intake.setNormalizedVoltage(speed);
     }
 
     @Override
-    public void isFinished() {
+    public boolean isFinished() {
         return this.config.stop.getAsBoolean() ^ this.config.stopInvert;
     }
 
     @Override
     public void end(boolean interrupted) {
-        this.intake.setNormalizedVoltage(0.0);
+        this.config.intake.setNormalizedVoltage(0.0);
     }
 }

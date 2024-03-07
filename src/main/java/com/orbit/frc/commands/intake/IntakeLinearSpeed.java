@@ -17,18 +17,18 @@ public class IntakeLinearSpeed extends Command {
     public IntakeLinearSpeed(IntakeLinearSpeedConfig config, double... speeds) {
         this.config = config;
         this.speed = speed;
-        addRequirements(config.flywheels);
+        addRequirements(config.intake);
     }
 
     @Override
     public void initialize() {
-        config.pid.reset();
+        this.config.pid.reset();
     }
 
     @Override
     public void execute() {
-        double input = config.intake.getLinearVelocity();
-        double output = config.pid.calculate(speed, input);
-        config.intake.setNormalizedVoltage(output);
+        double input = this.config.intake.getLinearVelocity();
+        double output = this.config.pid.calculate(speed, input);
+        this.config.intake.setNormalizedVoltage(output);
     }
 }
