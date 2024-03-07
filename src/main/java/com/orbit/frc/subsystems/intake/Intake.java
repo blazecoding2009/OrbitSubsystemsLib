@@ -16,4 +16,10 @@ public class Intake extends SubsystemBase {
     public void setNormalizedVoltage(double v) {
         setVoltage(v * 12.0);
     }
+
+    // get linear velocity of the flywheels in meters per second
+    public void getLinearVelocity() {
+        // multiply speed in rpm by circumference, and divide by 60 seconds in a minute
+        this.config.motors[0].getEncoder().getVelocity() * (2.0 * config.wheelRadius * 3.1415) / 60.0;
+    }
 }

@@ -22,7 +22,7 @@ public class SubsystemConfig {
     public CANSparkBase[] motors;
     public double gearRatio;
     
-    public static SubsystemConfig fromCANSparkXIDs(MotorModel type, int... ids) {
+    public static SubsystemConfig fromCANSparkXIDs(MotorModel type, double gearRatio, int... ids) {
         SubsystemConfig config = new SubsystemConfig();
         config.motorIDs = ids;
         config.motors = new CANSparkBase[ids.length];
@@ -39,6 +39,8 @@ public class SubsystemConfig {
                     break;
             }
             if(i > 0) config.motors[i].follow(config.motors[0]);
+            config.motors[i].getEncoder().setPositionConversionFactor(gearRatio);
+            config.motors[i].getEncoder().setVelocityConversionFactor(gearRatio);
         }
         
         return config;
