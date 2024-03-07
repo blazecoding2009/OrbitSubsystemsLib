@@ -20,6 +20,6 @@ public class Intake extends SubsystemBase {
     // get linear velocity of the flywheels in meters per second
     public void getLinearVelocity() {
         // multiply speed in rpm by circumference, and divide by 60 seconds in a minute
-        this.config.motors[0].getEncoder().getVelocity() * (2.0 * config.wheelRadius * 3.1415) / 60.0;
+        return this.config.motors[0].getEncoder().getVelocity() * (2.0 * config.wheelRadius * 3.1415) / 60.0;
     }
 }
