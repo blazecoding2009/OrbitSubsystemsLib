@@ -8,16 +8,11 @@ import com.orbit.frc.util.OrbitPID;
  * TODO: Maybe mod this to use intergrated PID on the SparkX controllers later
  */
 public class IntakeLinearSpeed extends IntakeCommand {
-
     private IntakeLinearSpeedConfig config;
 
-    // this changes often between commands for the same flywheels, let it be separate
-    private double speed;
-    
     public IntakeLinearSpeed(IntakeLinearSpeedConfig config, double speed) {
         super(config, speed);
         this.config = config;
-        this.speed = speed;
     }
 
     @Override
@@ -28,7 +23,7 @@ public class IntakeLinearSpeed extends IntakeCommand {
     @Override
     public void execute() {
         double input = this.config.intake.getLinearVelocity();
-        double output = this.config.pid.calculate(speed, input);
+        double output = this.config.pid.calculate(this.speed, input);
         this.config.intake.setNormalizedVoltage(output);
     }
 }

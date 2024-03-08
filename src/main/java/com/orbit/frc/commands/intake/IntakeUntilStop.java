@@ -7,12 +7,9 @@ import com.orbit.frc.subsystems.intake.Intake;
 public class IntakeUntilStop extends IntakeCommand {
     private IntakeUntilStopConfig config;
 
-    private double speed;
-
     public IntakeUntilStop(IntakeUntilStopConfig config, double speed) {
         super(config, speed);
         this.config = config;
-        this.speed = speed;
     }
 
     @Override

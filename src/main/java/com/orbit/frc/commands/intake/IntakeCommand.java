@@ -6,8 +6,8 @@ import com.orbit.frc.subsystems.intake.Intake;
 
 public class IntakeCommand extends Command {
     private IntakeCommandConfig config;
-    private double speed;
-
+    protected double speed; // we keep this separate from the config to avoid making 5 billion configs for each speed u want
+    
     public IntakeCommand(IntakeCommandConfig config, double speed) {
         this.config = config;
         this.speed = speed;
