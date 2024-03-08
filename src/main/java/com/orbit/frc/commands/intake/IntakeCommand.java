@@ -2,12 +2,19 @@ package com.orbit.frc.commands.intake;
 
 import edu.wpi.first.wpilibj2.command.Command;
 
-import com.orbit.frc.subsystems.intake.Intake;
-
+/* Base command for intaking
+ * Spins wheels at a set speed
+ * Inherit from this for other intake commands
+ */
 public class IntakeCommand extends Command {
+    /* The configuration class for this command */
     private IntakeCommandConfig config;
-    protected double speed; // we keep this separate from the config to avoid making 5 billion configs for each speed u want
-    
+
+    /* The speed to spin the wheels at. Must be from -1.0 to 1.0 */
+    protected double speed; 
+
+    /* Create a new IntakeCommand with a given config and speed
+     */
     public IntakeCommand(IntakeCommandConfig config, double speed) {
         this.config = config;
         this.speed = speed;
