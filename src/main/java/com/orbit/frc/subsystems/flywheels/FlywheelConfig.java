@@ -7,10 +7,15 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import com.orbit.frc.subsystems.SubsystemConfig;
 
+/* Configuration for a Flywheels subsystem */
 public class FlywheelConfig extends SubsystemConfig {
-   
-    public static SubsystemConfig fromCANSparkXIDs(MotorModel type, int... ids) {
-        SubsystemConfig config = new SubsystemConfig();
+    
+    /* Create a new FlywheelConfig from motor type and CAN IDs
+     * Gear ratio is assumed to be 1.0, as flywheels typically have a direct connection between the motors and the wheels
+     * This method is replaced to avoid flywheels following each other
+     */
+    public static FlywheelConfig fromCANSparkXIDs(MotorModel type, int... ids) {
+        FlywheelConfig config = new FlywheelConfig();
         config.motorIDs = ids;
         config.motors = new CANSparkBase[ids.length];
 
