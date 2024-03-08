@@ -25,7 +25,7 @@ public class PivotMove extends Command {
     
     public PivotMove(PivotMoveConfig config, double angle) {
         this.config = config;
-        this.target = angle;
+        this.targetAngle = angle;
 
         this.timer = new OrbitTimer();
         addRequirements(config.pivot);
@@ -36,7 +36,7 @@ public class PivotMove extends Command {
         config.pid.reset();
         
         this.startState = new TrapezoidProfile.State(config.pivot.getPositionDegrees(), 0.0);
-        this.endState = new TrapezoidProfile.State(this.target, 0.0);
+        this.endState = new TrapezoidProfile.State(this.targetAngle, 0.0);
 
         this.motionProfile = new TrapezoidProfile(config.motionProfileConstraints);
 
