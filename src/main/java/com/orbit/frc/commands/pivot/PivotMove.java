@@ -1,28 +1,28 @@
 package com.orbit.frc.commands.pivot;
 
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import com.orbit.frc.util.OrbitTimer;
 
+/* Command to move a pivot to a given position using a trapezoidal motion profile */
 public class PivotMove extends Command {
+    /* The configuration class for this command */
     private PivotMoveConfig config;
 
-    // this changes often between commands for the same pivot, let it be separate
+    /* The end goal of this movement */
     private double targetAngle;
 
-    // interal motion profile state
+    /* Trapezoidal motion profile to be used */ 
     private TrapezoidProfile motionProfile;
-    private TrapezoidProfile.State startState;
-    private TrapezoidProfile.State endState;
+    
+    /* The start and end states of the motion, calculated on initialization */
+    private TrapezoidProfile.State startState, endState;
 
-    // timing for motion profile
+    /* Timer to follow the motion profile */
     private OrbitTimer timer;
 
-    // internal calculation vars
-    private double target, input, pidOutput;
-    
+    /* Create a new PivotMove to the given angle using the given configuration */
     public PivotMove(PivotMoveConfig config, double angle) {
         this.config = config;
         this.targetAngle = angle;
@@ -51,9 +51,9 @@ public class PivotMove extends Command {
             	this.startState, this.endState
             );
 	
-        target = profileTarget.position;
-        input = config.pivot.getPositionDegrees();
-        pidOutput = config.pid.calculate(target, input);
+        double target = profileTarget.position;
+        double input = config.pivot.getPositionDegrees();
+        double pidOutput = config.pid.calculate(target, input);
         config.pivot.setNormalizedVoltage(pidOutput);
     }
 
@@ -64,7 +64,6 @@ public class PivotMove extends Command {
 
     @Override
     public void end(boolean interrupted) {
-        SmartDashboard.putNumber("Shoulder_Move_Time", this.timer.getTimeDeltaSec());
         config.pivot.setVoltage(0.0); // stop
     }
 }

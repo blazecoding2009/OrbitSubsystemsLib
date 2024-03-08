@@ -1,20 +1,15 @@
 package com.orbit.frc.subsystems.pivot;
 
-import com.revrobotics.CANSparkBase;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkFlex;
-import com.revrobotics.CANSparkLowLevel.MotorType;
-
 import edu.wpi.first.wpilibj.AnalogEncoder;
 
 import com.orbit.frc.subsystems.SubsystemConfig;
 
-public class PivotConfig extends SubsystemConfig{
-
-    /* Encoder config
-     * 
-     */
+/* Configuration for a Pivot subsystem */
+public class PivotConfig extends SubsystemConfig {
+    /* Absolute encoder port */
     public int encoderPort;
+    /* Constant value added to encoder output as an offset */
     public double encoderOffset;
+    /* The absolute encoder on the output shaft */
     public AnalogEncoder absoluteEncoder;
 }
