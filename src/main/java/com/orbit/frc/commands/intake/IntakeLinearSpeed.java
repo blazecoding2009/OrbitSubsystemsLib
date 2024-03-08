@@ -7,17 +7,17 @@ import com.orbit.frc.util.OrbitPID;
 /* Command that spins a set of flywheels at certain speeds using PID controllers
  * TODO: Maybe mod this to use intergrated PID on the SparkX controllers later
  */
-public class IntakeLinearSpeed extends Command {
+public class IntakeLinearSpeed extends IntakeCommand {
 
     private IntakeLinearSpeedConfig config;
 
     // this changes often between commands for the same flywheels, let it be separate
     private double speed;
     
-    public IntakeLinearSpeed(IntakeLinearSpeedConfig config, double... speeds) {
+    public IntakeLinearSpeed(IntakeLinearSpeedConfig config, double speed) {
+        super(config, speed);
         this.config = config;
         this.speed = speed;
-        addRequirements(config.intake);
     }
 
     @Override
