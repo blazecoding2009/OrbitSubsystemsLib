@@ -2,26 +2,23 @@ package com.orbit.frc.commands.flywheels;
 
 import java.lang.IllegalArgumentException;
 
-import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.math.controller.ArmFeedforward;
 
-import com.orbit.frc.subsystems.flywheels.Flywheels;
-import com.orbit.frc.util.OrbitTimer;
-import com.orbit.frc.util.OrbitPID;
-
-/* Command that spins a set of flywheels at certain speeds using PID controllers
+/* Command to spin a set of flywheels at certain speeds using PID controllers
  * TODO: Maybe mod this to use intergrated PID on the SparkX controllers later
  */
 public class SpinFlywheels extends Command {
 
+    /* The configuration class for this command */ 
     private SpinFlywheelsConfig config;
 
-    // these two might change often between commands for the same flywheels, let it be separate
+    /* The target speeds for each flywheel in the subsystem in RPM*/ 
     private double[] speeds;
-    private double tolerance; // tolerance array is probably not something we need right
 
+    /* The tolerance range for checking when the flywheels are ready to shoot */
+    private double tolerance;
+
+    /* Create a new SpinFlywheels command with a given configuration, tolerance, and set of speeds */
     public SpinFlywheels(SpinFlywheelsConfig config, double tolerance, double... speeds) {
         if(!(config.flywheels.getMotorCount() == config.pid.length && config.pid.length == speeds.length)) { 
             throw new IllegalArgumentException("The number of flywheels, PID controllers and speeds must be identical");
@@ -46,7 +43,7 @@ public class SpinFlywheels extends Command {
        }
     }
 
-    // Check if the flywheels are ready for firing
+    /* Check to see if all flywheel speeds are within tolerance for firing */
     public boolean ready() {
         for(int i = 0; i < config.flywheels.getMotorCount(); i++) {
             if(Math.abs(config.flywheels.getVelocityRPM(i) - speeds[i]) > tolerance)
