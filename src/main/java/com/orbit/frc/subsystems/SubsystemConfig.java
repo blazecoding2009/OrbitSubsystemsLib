@@ -5,23 +5,24 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.AnalogEncoder;
-
+/* The base class for all subsystem configurations */
 public class SubsystemConfig {
 
+    /* Enum to represent different types of motors when configuring */
     public enum MotorModel {
         REV_NEO,
         REV_NEO_550,
         REV_VORTEX
     }
 
-    /* Motor config
-     * For fast config, use the fromCANSparkXIDs method, then config individual motors as needed
-     */
-    public int[] motorIDs; 
+    /* Motor controller CAN IDs */
+    public int[] motorIDs;
+    /* Motor controller wrapper classes */
     public CANSparkBase[] motors;
+    /* The gear ratio between the motor shafts and the output shaft of the subsystem */ 
     public double gearRatio;
     
+    /* Create a new SubsystemConfig for a given motor type, gear ratio and CAN IDs */
     public static SubsystemConfig fromCANSparkXIDs(MotorModel type, double gearRatio, int... ids) {
         SubsystemConfig config = new SubsystemConfig();
         config.motorIDs = ids;
