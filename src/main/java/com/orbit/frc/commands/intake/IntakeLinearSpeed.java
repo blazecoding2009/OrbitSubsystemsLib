@@ -1,8 +1,11 @@
 package com.orbit.frc.commands.intake;
 
+/* Command to intake at a set linear speed in m/s */
 public class IntakeLinearSpeed extends IntakeCommand {
+    /* The configuration class for this command */
     private IntakeLinearSpeedConfig config;
 
+    /* Create a new IntakeLinearSpeed with a given config and speed, in m/s */
     public IntakeLinearSpeed(IntakeLinearSpeedConfig config, double speed) {
         super(config, speed);
         this.config = config;

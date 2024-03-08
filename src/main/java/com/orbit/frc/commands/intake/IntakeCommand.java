@@ -13,8 +13,7 @@ public class IntakeCommand extends Command {
     /* The speed to spin the wheels at. Must be from -1.0 to 1.0 */
     protected double speed; 
 
-    /* Create a new IntakeCommand with a given config and speed
-     */
+    /* Create a new IntakeCommand with a given config and speed */
     public IntakeCommand(IntakeCommandConfig config, double speed) {
         this.config = config;
         this.speed = speed;
