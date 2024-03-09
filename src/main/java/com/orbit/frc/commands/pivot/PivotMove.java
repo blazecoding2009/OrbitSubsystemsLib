@@ -22,7 +22,10 @@ public class PivotMove extends Command {
     /* Timer to follow the motion profile */
     private OrbitTimer timer;
 
-    /* Create a new PivotMove to the given angle using the given configuration */
+    /* Create a new PivotMove to the given angle using the given configuration 
+     * @param config The configuration to be used for the command
+     * @param angle The target angle for the command
+     */
     public PivotMove(PivotMoveConfig config, double angle) {
         this.config = config;
         this.targetAngle = angle;
