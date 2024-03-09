@@ -6,25 +6,28 @@ import edu.wpi.first.wpilibj2.command.Command;
 import com.orbit.frc.util.OrbitTimer;
 
 public class TelescopeMove extends Command {
+    /* The configuration class for this command */
     private TelescopeMoveConfig config;
 
-    // this changes often between commands for the same pivot, let it be separate
-    private double targetAngle;
+    /* The end goal of this movement */
+    private double targetPosition;
 
-    // interal motion profile state
+    /* Trapezoidal motion profile to be used */ 
     private TrapezoidProfile motionProfile;
-    private TrapezoidProfile.State startState;
-    private TrapezoidProfile.State endState;
+    
+    /* The start and end states of the motion, calculated on initialization */
+    private TrapezoidProfile.State startState, endState;
 
-    // timing for motion profile
+    /* Timer to follow the motion profile */
     private OrbitTimer timer;
 
-    // internal calculation vars
-    private double target, input, pidOutput;
-    
-    public TelescopeMove(TelescopeMoveConfig config, double angle) {
+    /* Create a new TelescopeMove to the given angle using the given configuration 
+     * @param config The configuration to be used for the command
+     * @param position The target position for the command
+     */
+    public TelescopeMove(TelescopeMoveConfig config, double position) {
         this.config = config;
-        this.target = angle;
+        this.targetPosition = position;
 
         this.timer = new OrbitTimer();
         addRequirements(config.pivot);
@@ -35,7 +38,7 @@ public class TelescopeMove extends Command {
         config.pid.reset();
         
         this.startState = new TrapezoidProfile.State(config.pivot.getPositionDegrees(), 0.0);
-        this.endState = new TrapezoidProfile.State(this.target, 0.0);
+        this.endState = new TrapezoidProfile.State(this.targetPosition, 0.0);
 
         this.motionProfile = new TrapezoidProfile(config.motionProfileConstraints);
 
@@ -50,9 +53,9 @@ public class TelescopeMove extends Command {
             	this.startState, this.endState
             );
 	
-        target = profileTarget.position;
-        input = config.pivot.getPositionDegrees();
-        pidOutput = config.pid.calculate(target, input);
+        double target = profileTarget.position;
+        double input = config.pivot.getPositionDegrees();
+        double pidOutput = config.pid.calculate(target, input);
         config.pivot.setNormalizedVoltage(pidOutput);
     }
 
