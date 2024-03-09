@@ -30,14 +30,14 @@ public class TelescopeMove extends Command {
         this.targetPosition = position;
 
         this.timer = new OrbitTimer();
-        addRequirements(config.pivot);
+        addRequirements(config.telescope);
     }
 
     @Override
     public void initialize() {
         config.pid.reset();
         
-        this.startState = new TrapezoidProfile.State(config.pivot.getPositionDegrees(), 0.0);
+        this.startState = new TrapezoidProfile.State(config.telescope.getPositionDegrees(), 0.0);
         this.endState = new TrapezoidProfile.State(this.targetPosition, 0.0);
 
         this.motionProfile = new TrapezoidProfile(config.motionProfileConstraints);
@@ -54,9 +54,9 @@ public class TelescopeMove extends Command {
             );
 	
         double target = profileTarget.position;
-        double input = config.pivot.getPositionDegrees();
+        double input = config.telescope.getPositionDegrees();
         double pidOutput = config.pid.calculate(target, input);
-        config.pivot.setNormalizedVoltage(pidOutput);
+        config.telescope.setNormalizedVoltage(pidOutput);
     }
 
     @Override
@@ -66,6 +66,6 @@ public class TelescopeMove extends Command {
 
     @Override
     public void end(boolean interrupted) {
-        config.pivot.setVoltage(0.0); // stop
+        config.telescope.setVoltage(0.0); // stop
     }
 }

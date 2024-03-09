@@ -7,19 +7,15 @@ public class Telescope extends SubsystemBase {
 
     public Telescope(TelescopeConfig config) {
         this.config = config;
-
-        config.motors[0].getEncoder().setPositionConversionFactor(config.gearRatio);
-        config.motors[0].getEncoder().setVelocityConversionFactor(config.gearRatio);
-        
         this.resetEncoder();
     }
 
-    /* Set voltage directly */
+    /* Set motor output voltage directly */
     public void setVoltage(double v) {
         config.motors[0].setVoltage(v);
     }
 
-    /* Set voltage as fraction of 12.0 V */
+    /* Set motor output voltage as fraction of 12.0 V */
     public void setNormalizedVoltage(double v) {
         setVoltage(v * 12.0);
     }
