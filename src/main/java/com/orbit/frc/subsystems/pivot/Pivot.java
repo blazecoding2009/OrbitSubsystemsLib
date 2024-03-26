@@ -10,10 +10,6 @@ public class Pivot extends SubsystemBase {
     /* Create a new Pivot with the given configuration */
     public Pivot(PivotConfig config) {
         this.config = config;
-
-        config.motors[0].getEncoder().setPositionConversionFactor(config.gearRatio);
-        config.motors[0].getEncoder().setVelocityConversionFactor(config.gearRatio);
-
         this.resetEncoder();
     }
 

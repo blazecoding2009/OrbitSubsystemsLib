@@ -20,29 +20,25 @@ public class Telescope extends SubsystemBase {
         setVoltage(v * 12.0);
     }
 
-    public double getPositionRotations() {
-        return config.motors[0].getEncoder().getPosition() - config.encoderOffset;
-    }
-
-    public double getPositionDegrees() {
-        return getPositionRotations() * 360.0;
+    /* Get the extended distance of the telescope, in meters */
+    public double getPositionMeters() {
+        return config.motors[0].getEncoder().getPosition();
     }
     
-    public double getVelocityRotations() {
+    /* Get the velocity of the telescope, in meters per second */
+    public double getVelocityMeters() {
         return config.motors[0].getEncoder().getVelocity();
     }
 
-    public double getVelocityDegrees() {
-        return getVelocityRotations() * 360.0;
-    }
-
+    /* Get the state of the limit switch, inverted if needed */
     public boolean getLimitSwitch() {
         // XOR to easily invert the result
         return config.limitSwitch.get() ^ config.limitSwitchInverted;
     }
 
-    /* Set the encoder offset to be wherever the pivot is right now */
+    /* Set the encoder offset based on the absolute encoder offset, if there is one */
     public void resetEncoder() {
-        config.motors[0].getEncoder().setPosition(0);
+        double newPosition = config.absoluteEncoder.get() - config.encoderOffset;
+        config.motors[0].getEncoder().setPosition(newPosition);
     }
 }
