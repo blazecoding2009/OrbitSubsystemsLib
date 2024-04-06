@@ -28,8 +28,8 @@ public class TelescopeMove extends Command {
     public TelescopeMove(TelescopeMoveConfig config, double position) {
         this.config = config;
         this.targetPosition = position;
-
         this.timer = new OrbitTimer();
+
         addRequirements(config.telescope);
     }
 
