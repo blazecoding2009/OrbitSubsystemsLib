@@ -7,7 +7,11 @@ public class Telescope extends SubsystemBase {
 
     public Telescope(TelescopeConfig config) {
         this.config = config;
-        this.resetEncoder();
+
+        // If we don't already have the limit switch, create it
+        if (config.limitSwitch == null) {
+            config.limitSwitch = new DigitalInput(config.limitSwitchPort);
+        }
     }
 
     /* Set motor output voltage directly */
@@ -30,19 +34,15 @@ public class Telescope extends SubsystemBase {
         return config.motors[0].getEncoder().getVelocity();
     }
 
-    /* Get the state of the limit switch, inverted if needed, and only if there is one 
-     * Will always return false if there is no limit switch */
+    /* Get the state of the limit switch, inverted if needed*/ 
     public boolean getLimitSwitch() {
-        // AND to avoid NullPointerExceptions if we dont have a limit switch, XOR to easily invert the result
-        return config.limitSwitch != null && (config.limitSwitch.get() ^ config.limitSwitchInverted);
+        // XOR to easily invert the result
+        return config.limitSwitch.get() ^ config.limitSwitchInverted;
     }
 
-    /* Set the encoder offset based on the absolute encoder offset, if there is one.
-     * If not, reset to 0. */
+    /* Reset the encoder to whatever the offset is.
+     * Meant to be used together with getLimitSwitch() to reset to a known position */
     public void resetEncoder() {
-        double newPosition;
-        if (config.absoluteEncoder == null) newPosition = 0; 
-        else newPosition = config.absoluteEncoder.get() - config.encoderOffset;
-        config.motors[0].getEncoder().setPosition(newPosition);
+        config.motors[0].getEncoder().setPosition(config.encoderOffset);
     }
 }
