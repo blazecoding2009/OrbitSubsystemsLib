@@ -30,15 +30,19 @@ public class Telescope extends SubsystemBase {
         return config.motors[0].getEncoder().getVelocity();
     }
 
-    /* Get the state of the limit switch, inverted if needed */
+    /* Get the state of the limit switch, inverted if needed, and only if there is one 
+     * Will always return false if there is no limit switch */
     public boolean getLimitSwitch() {
-        // XOR to easily invert the result
-        return config.limitSwitch.get() ^ config.limitSwitchInverted;
+        // AND to avoid NullPointerExceptions if we dont have a limit switch, XOR to easily invert the result
+        return config.limitSwitch != null && (config.limitSwitch.get() ^ config.limitSwitchInverted);
     }
 
-    /* Set the encoder offset based on the absolute encoder offset, if there is one */
+    /* Set the encoder offset based on the absolute encoder offset, if there is one.
+     * If not, reset to 0. */
     public void resetEncoder() {
-        double newPosition = config.absoluteEncoder.get() - config.encoderOffset;
+        double newPosition;
+        if (config.absoluteEncoder == null) newPosition = 0; 
+        else newPosition = config.absoluteEncoder.get() - config.encoderOffset;
         config.motors[0].getEncoder().setPosition(newPosition);
     }
 }
