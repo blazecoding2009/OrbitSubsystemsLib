@@ -8,6 +8,7 @@ Currently available subsystems:
   - Intake stop switch
 - Pivot
 - Telescope
+- LEDs
 
 Planned features:
 - Intake and flywheel linear speed control
