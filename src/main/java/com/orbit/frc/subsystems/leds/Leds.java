@@ -14,10 +14,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  * Class: Leds
  * Description: This class represents the subsystem responsible for controlling LEDs on a robot.
  */
-public class Leds extends SubsystemBase {
+public class Leds {
     private final LedConfig config; // Configuration object for LEDs
 
-    private Spark LEDController; // Spark object for controlling LEDs
     private double LEDColour; // Current color of LEDs
     public LEDStates LEDstate; // Current state of LEDs
 
